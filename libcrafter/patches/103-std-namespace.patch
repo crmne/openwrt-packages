@@ -1,0 +1,124 @@
+diff --git a/crafter/Utils/PacketContainer.h b/crafter/Utils/PacketContainer.h
+index b7ac90c..41290c6 100644
+--- a/crafter/Utils/PacketContainer.h
++++ b/crafter/Utils/PacketContainer.h
+@@ -124,7 +124,7 @@ namespace Crafter {
+ 			(*begin)->Send(pair->iface);
+ 			count += num_threads;
+ 			if(count > total) break;
+-			advance(begin,num_threads);
++			std::advance(begin,num_threads);
+ 		}
+ 
+ 		delete pair;
+@@ -137,7 +137,7 @@ namespace Crafter {
+ 	template<typename FowardIter>
+ 	void SendMultiThread(FowardIter begin, FowardIter end, const std::string& iface, int num_threads) {
+ 		/* Total number of packets */
+-		int total = distance(begin,end);
++		int total = std::distance(begin,end);
+ 		if (total < num_threads) num_threads = total;
+ 
+ 		/* Thread array */
+@@ -150,7 +150,7 @@ namespace Crafter {
+ 
+ 			/* Start value on the container */
+ 			pair->beginIterator = begin;
+-			advance(pair->beginIterator,i);
++			std::advance(pair->beginIterator,i);
+ 			/* Start value for the counter */
+ 			pair->start_count = i;
+ 			/* Put the number of threads */
+@@ -223,7 +223,7 @@ namespace Crafter {
+ 			(*begin)->SocketSend(pair->sd);
+ 			count += num_threads;
+ 			if(count > total) break;
+-			advance(begin,num_threads);
++			std::advance(begin,num_threads);
+ 		}
+ 
+ 		delete pair;
+@@ -236,7 +236,7 @@ namespace Crafter {
+ 	template<typename FowardIter>
+ 	void SocketSendMultiThread(int sd, FowardIter begin, FowardIter end, int num_threads) {
+ 		/* Total number of packets */
+-		int total = distance(begin,end);
++		int total = std::distance(begin,end);
+ 		if (total < num_threads) num_threads = total;
+ 
+ 		/* Thread array */
+@@ -249,7 +249,7 @@ namespace Crafter {
+ 
+ 			/* Start value on the container */
+ 			pair->beginIterator = begin;
+-			advance(pair->beginIterator,i);
++			std::advance(pair->beginIterator,i);
+ 			/* Start value for the counter */
+ 			pair->start_count = i;
+ 			/* Put the number of threads */
+@@ -326,8 +326,8 @@ namespace Crafter {
+ 			(*begin)->SendRecvPtr(pair->iface,timeout,retry," ",(*out_begin));
+ 			count += num_threads;
+ 			if(count > total) break;
+-			advance(begin,num_threads);
+-			advance(out_begin,num_threads);
++			std::advance(begin,num_threads);
++			std::advance(out_begin,num_threads);
+ 		}
+ 
+ 		delete pair;
+@@ -341,7 +341,7 @@ namespace Crafter {
+ 	void SendRecvMultiThread(FowardIter begin, FowardIter end, OutputIter out_begin,
+ 			                 const std::string& iface, double timeout, int retry, int num_threads) {
+ 		/* Total number of packets */
+-		int total = distance(begin,end);
++		int total = std::distance(begin,end);
+ 		if (total < num_threads) num_threads = total;
+ 
+ 		/* Thread array */
+@@ -354,10 +354,10 @@ namespace Crafter {
+ 
+ 			/* Start value on the container */
+ 			pair->beginIterator = begin;
+-			advance(pair->beginIterator,i);
++			std::advance(pair->beginIterator,i);
+ 			/* Start value of output iterator */
+ 			pair->beginOutput = out_begin;
+-			advance(pair->beginOutput,i);
++			std::advance(pair->beginOutput,i);
+ 			/* Start value for the counter */
+ 			pair->start_count = i;
+ 			/* Put the number of threads */
+@@ -440,8 +440,8 @@ namespace Crafter {
+ 			(*begin)->SocketSendRecvPtr(pair->sd,pair->iface,timeout,retry," ",(*out_begin));
+ 			count += num_threads;
+ 			if(count > total) break;
+-			advance(begin,num_threads);
+-			advance(out_begin,num_threads);
++			std::advance(begin,num_threads);
++			std::advance(out_begin,num_threads);
+ 		}
+ 
+ 		delete pair;
+@@ -455,7 +455,7 @@ namespace Crafter {
+ 	void SocketSendRecvMultiThread(int sd,FowardIter begin, FowardIter end, OutputIter out_begin,
+ 			                 const std::string& iface, double timeout, int retry, int num_threads) {
+ 		/* Total number of packets */
+-		int total = distance(begin,end);
++		int total = std::distance(begin,end);
+ 		if (total < num_threads) num_threads = total;
+ 
+ 		/* Thread array */
+@@ -468,10 +468,10 @@ namespace Crafter {
+ 
+ 			/* Start value on the container */
+ 			pair->beginIterator = begin;
+-			advance(pair->beginIterator,i);
++			std::advance(pair->beginIterator,i);
+ 			/* Start value of output iterator */
+ 			pair->beginOutput = out_begin;
+-			advance(pair->beginOutput,i);
++			std::advance(pair->beginOutput,i);
+ 			/* Start value for the counter */
+ 			pair->start_count = i;
+ 			/* Put the number of threads */
